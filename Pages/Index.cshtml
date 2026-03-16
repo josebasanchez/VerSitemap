@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "VerSitemap";
+}
+
+<section class="sitemap">
+    <div class="card">
+        <header class="card-header">
+            <h1>VerSitemap</h1>
+            <p>Contexto</p>
+        </header>
+
+        <div class="controls">
+            <div class="input-group">
+                <label for="domainInput">Dominio</label>
+                <input id="domainInput" type="text" placeholder="" autocomplete="off" />
+            </div>
+            <button id="loadBtn" class="btn btn-primary" type="button">Cargar</button>
+        </div>
+
+        <div class="status-row">
+            <span id="domainLabel">Dominio: -</span>
+            <span id="progressLabel">0/0</span>
+        </div>
+
+        <ul id="urlList" class="url-list"></ul>
+
+        <div class="actions">
+            <button id="generateBtn" class="btn btn-accent" type="button">Generar</button>
+        </div>
+    </div>
+</section>
