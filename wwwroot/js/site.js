@@ -5,8 +5,9 @@
   const urlList = document.getElementById("urlList");
   const domainLabel = document.getElementById("domainLabel");
   const progressLabel = document.getElementById("progressLabel");
+  const selectAll = document.getElementById("selectAll");
 
-  if (!domainInput || !loadBtn || !generateBtn || !urlList || !domainLabel || !progressLabel) {
+  if (!domainInput || !loadBtn || !generateBtn || !urlList || !domainLabel || !progressLabel || !selectAll) {
     return;
   }
 
@@ -62,6 +63,7 @@
     });
 
     generateBtn.disabled = state.isRunning || state.items.length === 0;
+    selectAll.checked = state.items.length > 0 && state.items.every((item) => item.selected);
   }
 
   function updateItem(item) {
@@ -82,6 +84,9 @@
     if (chip) {
       chip.textContent = item.statusDetail ? `(${item.statusDetail})` : "";
     }
+
+    const allChecks = Array.from(urlList.querySelectorAll("input[type='checkbox']"));
+    selectAll.checked = allChecks.length > 0 && allChecks.every((input) => input.checked);
   }
 
   const connection = new signalR.HubConnectionBuilder()
@@ -103,6 +108,13 @@
       return;
     }
     connection.invoke("LoadDomain", value).catch((err) => console.error(err));
+  });
+
+  selectAll.addEventListener("change", () => {
+    const checked = selectAll.checked;
+    Array.from(urlList.querySelectorAll("input[type='checkbox']")).forEach((input) => {
+      input.checked = checked;
+    });
   });
 
   generateBtn.addEventListener("click", () => {

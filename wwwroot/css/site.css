@@ -90,6 +90,12 @@ main {
   font-size: 13px;
 }
 
+.select-all {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .url-list {
   list-style: none;
   padding: 0;
